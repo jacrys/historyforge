@@ -6,22 +6,22 @@ module Api
     ALLOWED_ORIGINS = %w[http://localhost:5173 http://localhost:5174 https://greenwood.jacrys.com https://jacrys.com].freeze
 
     def json
-      rq = {
-        origin: request.headers['Origin'],
-        host: request.host
-      }
-      if ALLOWED_ORIGINS.include?(rq[:origin]) || (rq[:host] == 'localhost' && rq[:origin].nil?)
-        response_headers = if rq[:origin].nil?
-                             { 'Access-Control-Allow-Origin' => 'localhost' }
-                           else
-                             { 'Access-Control-Allow-Origin' => rq[:origin] }
-                           end
-      else
+     # rq = {
+     #   origin: request.headers['Origin'],
+     #   host: request.host
+     # }
+     # if ALLOWED_ORIGINS.include?(rq[:origin]) || (rq[:host] == 'localhost' && rq[:origin].nil?)
+     #   response_headers = if rq[:origin].nil?
+     #                        { 'Access-Control-Allow-Origin' => 'localhost' }
+     #                      else
+     #                        { 'Access-Control-Allow-Origin' => rq[:origin] }
+     #                      end
+     # else
         # Handle requests from disallowed origins (e.g., return a 403 Forbidden or omit the header)
-        response_headers = {} # or {"Access-Control-Allow-Origin": "null"} (use with caution)
-        render status: :forbidden, plain: 'Forbidden' and return
-      end
-      response_headers['Vary'] = 'Origin' # Include Vary: Origin
+     #   response_headers = {} # or {"Access-Control-Allow-Origin": "null"} (use with caution)
+     #   render status: :forbidden, plain: 'Forbidden' and return
+     # end
+     # response_headers['Vary'] = 'Origin' # Include Vary: Origin
 
       all_buildings = []
       all_people = []
@@ -114,7 +114,7 @@ module Api
         count: counts
       }
 
-      response.headers.merge!(response_headers)
+      # response.headers.merge!(response_headers)
       render json: ready_json
     end
 

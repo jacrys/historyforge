@@ -11,7 +11,6 @@ module Api
       SEARCH_YEARS = %w[1910 1920].freeze
 
       def search
-
         if request.method == 'OPTIONS'
           set_cors_headers
           head :ok
@@ -19,7 +18,7 @@ module Api
         end
 
         # CORS validation
-        validate_origin!
+        # validate_origin!
 
         search_term = params[:search]
         return render_empty_geojson if search_term.blank?
@@ -43,14 +42,14 @@ module Api
         geojson = Building.as_geojson(all_features)
 
         # Set CORS headers
-        origin = request.headers['Origin']
-        response_headers = if origin.nil?
-                             { 'Access-Control-Allow-Origin' => 'localhost' }
-                           else
-                             { 'Access-Control-Allow-Origin' => origin }
-                           end
-        response_headers['Vary'] = 'Origin'
-        response.headers.merge!(response_headers)
+        # origin = request.headers['Origin']
+        # response_headers = if origin.nil?
+        #                     { 'Access-Control-Allow-Origin' => 'localhost' }
+        #                  else
+        #                     { 'Access-Control-Allow-Origin' => origin }
+        #                  end
+        # response_headers['Vary'] = 'Origin'
+        # response.headers.merge!(response_headers)
 
         render json: geojson
       end
@@ -58,13 +57,13 @@ module Api
       private
 
       def set_cors_headers
-        origin = request.headers['Origin']
-        if origin.nil? || ALLOWED_ORIGINS.include?(origin) || origin.start_with?('http://localhost:', 'https://localhost:')
-          response.headers['Access-Control-Allow-Origin'] = origin || '*'
-          response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-          response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With'
-          response.headers['Vary'] = 'Origin'
-        end
+       # origin = request.headers['Origin']
+       # if origin.nil? || ALLOWED_ORIGINS.include?(origin) || origin.start_with?('http://localhost:', 'https://localhost:')
+       #   response.headers['Access-Control-Allow-Origin'] = origin || '*'
+       #   response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+       #   response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With'
+       #   response.headers['Vary'] = 'Origin'
+       # end
       end
 
       def strict_mode?
@@ -73,25 +72,26 @@ module Api
       end
 
       def validate_origin!
-        origin = request.headers['Origin']
-        ua = request.headers['User-Agent']
-        host = request.host
+	# puts "Request: #{request.to_json}"
+        # origin = request.headers['Origin']
+        # ua = request.headers['User-Agent']
+        # host = request.host
 
-        return if origin_allowed?(origin, host, ua)
+        # return if origin_allowed?(origin, host, ua)
 
-        render status: :forbidden, plain: 'Forbidden'
+        # render status: :forbidden, plain: 'Forbidden'
       end
 
       def origin_allowed?(origin, host, ua)
-        return true if origin.nil? && ua.contains?('PostmanRuntime')
-        return true if ALLOWED_ORIGINS.include?(origin)
+        # return true if origin.nil? && ua.include?('PostmanRuntime')
+        # return true if ALLOWED_ORIGINS.include?(origin)
         # Simplified localhost check
-        return true if origin&.start_with?('http://localhost:', 'https://localhost:')
+        # return true if origin&.start_with?('http://localhost:', 'https://localhost:')
 
         # Check for greenwood domains
-        return true if origin&.include?('greenwood')
+        # return true if origin&.include?('greenwood')
 
-        false
+        # false
       end
 
       def render_empty_geojson
