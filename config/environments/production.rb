@@ -106,6 +106,18 @@ Rails.application.configure do
 
   config.public_file_server.enabled = true
 
-  config.hosts << 'greenwood.jacrys.com'
+  config.hosts << /.*\.jacrys\.com/
+  config.hosts << '172.232.24.146'
+  # Allow connections from dev machine
+  config.hosts << IPAddr.new('75.61.82.128/28')
+
+  # Allow private network ranges
+  config.hosts << IPAddr.new('10.0.0.0/8')       # All 10.x.x.x addresses
+  config.hosts << IPAddr.new('172.16.0.0/12')    # 172.16.x.x - 172.31.x.x
+  config.hosts << IPAddr.new('192.168.0.0/16')   # All 192.168.x.x addresses
+
+  # Allow localhost variations
+  config.hosts << IPAddr.new('127.0.0.0/8')      # All 127.x.x.x addressess
+
   config.relative_url_root = "/admin"
 end

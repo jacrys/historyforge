@@ -40,6 +40,18 @@ module HistoryForge
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+
+    config.allowed_cors_origins = [
+      'http://localhost:4173',
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'https://greenwood.jacrys.com',
+      'https://jacrys.com',
+      '2600:1702:5f44:3200:18a8:5aff:f2c1:b352'
+    ]
+
     config.action_mailer.default_url_options = { host: ENV['BASE_URL'] }
 
     config.quiet_assets = true

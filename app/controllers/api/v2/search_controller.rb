@@ -12,11 +12,11 @@ module Api
       SEARCH_YEARS = %w[1910 1920].freeze
 
       def search
-        # if request.method == 'OPTIONS'
-        #   set_cors_headers
-        #   head :ok
-        #   return
-        # end
+        if request.method == 'OPTIONS'
+          set_cors_headers
+          head :ok
+          return
+        end
 
         # CORS validation
         # validate_origin!

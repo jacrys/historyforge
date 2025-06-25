@@ -6,6 +6,13 @@ module Api
     ALLOWED_ORIGINS = %w[http://localhost:5173 http://localhost:5174 https://greenwood.jacrys.com https://jacrys.com].freeze
 
     def json
+
+      # Handle preflight OPTIONS request
+      if request.method == 'OPTIONS'
+        set_cors_headers
+        head :ok
+        return
+      end
       # rq = {
       #   origin: request.headers['Origin'],
       #   host: request.host
@@ -338,7 +345,7 @@ module Api
         location: record.coordinates,
         properties: {
           census_records: census_records.map { |c_record| c_record.as_json(methods: [:sortable_name]) },
-          people: people_array.map { |p| p.as_json(methods: [:sortable_name]) },
+          people: people_array,
           stories: building_narratives,
           photos: building_photos,
           audios: building_audios,
