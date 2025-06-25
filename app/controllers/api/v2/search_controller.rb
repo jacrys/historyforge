@@ -1,13 +1,7 @@
 module Api
   module V2
     class SearchController < ApplicationController
-      ALLOWED_ORIGINS = %w[
-        http://localhost:5173
-        http://localhost:5174
-        https://greenwood.jacrys.com
-        https://jacrys.com
-        2600:1702:5f44:3200:18a8:5aff:f2c1:b352
-      ].freeze
+      protect_from_forgery with: :null_session, if: :cors_request?
 
       SEARCH_YEARS = %w[1910 1920].freeze
 
@@ -295,6 +289,26 @@ module Api
 
         # Remove double admin
         url.gsub('/admin/admin/', '/admin/')
+      end
+
+      def cors_request?
+        origin = request.headers['Origin']
+        allowed_origins = Rails.application.config.allowed_cors_origins
+        origin.present? && allowed_origins.include?(origin)
+      end
+
+      def set_cors_headers
+        origin = request.headers['Origin']
+        allowed_origins = Rails.application.config.allowed_cors_origins
+
+        if origin.present? && (allowed_origins.include?(origin) || allowed_origins.include?('*'))
+          response.headers['Access-Control-Allow-Origin'] = origin
+        elsif allowed_origins.include?('*')
+          response.headers['Access-Control-Allow-Origin'] = '*'
+        end
+
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With'
       end
     end
   end
