@@ -3,20 +3,32 @@ module Api
     # "api/json?search=your_search" provide your search as a query parameter called search like so
     # http://127.0.0.1:3000/api/json?search=#{params[:search]}
     @@search_controller = SearchController.new
-    protect_from_forgery with: :null_session, if: :cors_request?
+    skip_before_action :verify_authenticity_token
+    protect_from_forgery with: :null_session
 
     def json
 
       # Handle preflight OPTIONS request
-      if request.method == 'OPTIONS'
-        set_cors_headers
-        head :ok
-        return
-      end
+      # if request.method == 'OPTIONS'
+      #  set_cors_headers
+      #  head :ok
+      #  return
+      # end
       # response_headers = { 'Access-Control-Allow-Origin' => '*' }
       # response_headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
       # response_headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With'
       # response_headers['Vary'] = 'Origin' # Include Vary: Origin
+
+      if request.method == 'OPTIONS'
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        response.headers['Access-Control-Allow-Headers'] = 'Accept, Accept-Language, Cache-Control, Connection, DNT, Origin, Pragma, Referer, Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site, User-Agent, sec-ch-ua, sec-ch-ua-mobile, sec-ch-ua-platform, Content-Type, Authorization, X-Requested-With'
+        response.headers['Access-Control-Max-Age'] = '86400'
+        head :ok
+        return
+      end
+
+
 
       all_buildings = []
       all_people = []
