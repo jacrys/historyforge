@@ -31,10 +31,10 @@
             "version": "latest"
         },
         "ghcr.io/devcontainers/features/node:": {
-            "installYarnUsingApt": true,
+            "installYarnUsingApt": false,
             "version": "latest",
             "pnpmVersion": "none",
-            "nvmVersion": "0.40.3"
+            "nvmVersion": "none"
         },
         "ghcr.io/meaningful-ooo/devcontainer-features/homebrew:2": {},
         "ghcr.io/eitsupi/devcontainer-features/jq-likes:2.1.1": {

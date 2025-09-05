@@ -14,7 +14,7 @@ class BuildingEntity < BaseEntity
   attribute :latitude, :decimal
   attribute :lining, :string
   attribute :locality, :string
-  attribute :location, :string
+  attribute :location
   attribute :longitude, :decimal
   attribute :name, :string
   attribute :notes, :string
@@ -71,13 +71,13 @@ class BuildingEntity < BaseEntity
       # Note: should_skip_empty_census? method will need to be passed in or configured
 
       entity.properties = {
-        census_records: census_records.filter_map { |record| CensusRecordEntity.build_from(record, year) },
-        people: people.filter_map { |p| PersonEntity.build_from(p, year, include_related: false) },
-        stories: building.narratives.filter_map { |n| NarrativeEntity.build_from(n, year, include_related: false) },
-        photos: building.photos.filter_map { |p| PhotoEntity.build_from(p, year, include_related: false) },
-        audios: building.audios.filter_map { |a| AudioEntity.build_from(a, year, include_related: false) },
-        videos: building.videos.filter_map { |v| VideoEntity.build_from(v, year, include_related: false) },
-        documents: building.documents.filter_map { |d| DocumentEntity.build_from(d, year, include_related: false) },
+        census_records: census_records.filter_map { |record| CensusRecordEntity.build_from(record, year)&.to_h },
+        people: people.filter_map { |p| PersonEntity.build_from(p, year, include_related: false)&.to_h },
+        stories: building.narratives.filter_map { |n| NarrativeEntity.build_from(n, year, include_related: false)&.to_h },
+        photos: building.photos.filter_map { |p| PhotoEntity.build_from(p, year, include_related: false)&.to_h },
+        audios: building.audios.filter_map { |a| AudioEntity.build_from(a, year, include_related: false)&.to_h },
+        videos: building.videos.filter_map { |v| VideoEntity.build_from(v, year, include_related: false)&.to_h },
+        documents: building.documents.filter_map { |d| DocumentEntity.build_from(d, year, include_related: false)&.to_h },
         addresses: building.addresses.map(&:as_json)
       }
     end
@@ -109,18 +109,39 @@ class BuildingEntity < BaseEntity
           },
           properties: {
             location_id: entity.id,
+            id: entity.id,
             year: entity.year,
-            title: entity.name.to_s.strip,
+            address: entity.address,
             addresses: entity.properties[:addresses] || [],
+            architects: entity.architects,
             audios: entity.properties[:audios] || [],
-            stories: entity.properties[:stories] || [],
-            videos: entity.properties[:videos] || [],
-            photos: entity.properties[:photos] || [],
-            documents: entity.properties[:documents] || [],
-            description: entity.description&.to_s&.strip,
-            rich_description: entity.rich_description,
+            block_number: entity.block_number,
+            building_types: entity.building_types,
             census_records: entity.properties[:census_records] || [],
-            people: entity.properties[:people] || []
+            description_name: entity.description_name,
+            description: entity.description,
+            documents: entity.properties[:documents] || [],
+            frame: entity.frame,
+            historical_addresses: entity.historical_addresses,
+            latitude: entity.latitude,
+            lining: entity.lining,
+            locality: entity.locality,
+            location: entity.coordinates,
+            longitude: entity.longitude,
+            name: entity.name,
+            notes: entity.notes,
+            parent: entity.parent,
+            people: entity.properties[:people] || [],
+            photo: entity.photo,
+            photos: entity.properties[:photos] || [],
+            rich_description_name: entity.rich_description_name,
+            rich_description: entity.rich_description,
+            stories: entity.properties[:stories] || [],
+            title: entity.name.to_s.strip,
+            videos: entity.properties[:videos] || [],
+            year_earliest: entity.year_earliest,
+            year_latest: entity.year_latest,
+            year_split_from_parent: entity.year_split_from_parent,
           }
         }
       end

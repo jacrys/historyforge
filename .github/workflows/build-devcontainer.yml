@@ -53,13 +53,20 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Docker image
+        id: build
         uses: docker/build-push-action@v5
         with:
           context: .
           file: .devcontainer/Dockerfile
-          push: true
+          push: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          platforms: linux/amd64
 
+      - name: Output image details
+        run: |
+          echo "Built image tags:"
+          echo "${{ steps.meta.outputs.tags }}"
+          echo "Image digest: ${{ steps.build.outputs.digest }}"

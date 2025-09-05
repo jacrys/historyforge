@@ -12,7 +12,7 @@ class VideoEntity < BaseEntity
   attribute :file_size, :integer
   attribute :height, :integer
   attribute :latitude, :decimal
-  attribute :location, :string
+  attribute :location
   attribute :longitude, :decimal
   attribute :notes, :string
   attribute :processed_at, :datetime

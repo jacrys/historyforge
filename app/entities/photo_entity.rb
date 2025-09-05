@@ -10,7 +10,7 @@ class PhotoEntity < BaseEntity
   attribute :date_of_original, :string
   attribute :description, :string
   attribute :latitude, :decimal
-  attribute :location, :string
+  attribute :location
   attribute :longitude, :decimal
   attribute :notes, :string
   attribute :type, :string, default: 'photo'

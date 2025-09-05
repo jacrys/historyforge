@@ -15,5 +15,8 @@ log_standard_icon "⚡" "Installing powerlevel10k..."
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/.oh-my-zsh/custom/themes/powerlevel10k
 log_standard_icon "💎" "Installing Gems..."
 bundle install
+log_standard_icon "📦" "Enabling Corepack..."
+corepack enable
 log_standard_icon "📦" "Installing NPM packages..."
-yarn installs
+yarn set version stable
+yarn install

@@ -114,7 +114,7 @@ module Api
       audios = search_audios(search_term, year)
 
       # Build hashes with confidence scores
-      building_hashes = buildings.filter_map do |b| 
+      building_hashes = buildings.filter_map do |b|
         hash = build_building_hash(b, year)
         if hash
           confidence_data = calculate_building_confidence(b, search_term, year)
