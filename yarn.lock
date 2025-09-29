@@ -333,23 +333,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rails/actiontext@npm:^6.0.2-2":
-  version: 6.1.710
-  resolution: "@rails/actiontext@npm:6.1.710"
+"@rails/actiontext@npm:^8.0.300":
+  version: 8.0.300
+  resolution: "@rails/actiontext@npm:8.0.300"
   dependencies:
-    "@rails/activestorage": "npm:^6.0.0"
+    "@rails/activestorage": "npm:>= 8.0.0-alpha"
   peerDependencies:
-    trix: ^1.2.0
-  checksum: 10c0/a533be8140b9e742853aad0004802b1ec015c611302b4af3a562c618ac8bc78c74f7be9ba40bc7a1ba74782968abf376af755b02d512db95ba2a2ebb026f58fb
+    trix: ^2.0.0
+  checksum: 10c0/8f1f8ad80b3cf6c0a9451e7a7ff5fd77834a6949fb393420378193f690704f7c62ec813e091c99c144ce5a24f334b92ad537f524a97dbec9e2ec5f0c79f7e9ae
   languageName: node
   linkType: hard
 
-"@rails/activestorage@npm:^6.0.0":
-  version: 6.1.710
-  resolution: "@rails/activestorage@npm:6.1.710"
+"@rails/activestorage@npm:>= 8.0.0-alpha":
+  version: 8.0.300
+  resolution: "@rails/activestorage@npm:8.0.300"
   dependencies:
-    spark-md5: "npm:^3.0.0"
-  checksum: 10c0/f00dad0a92120c479d60097e19c80b9b13a2879ef45104ca4812ab125ab167a26467ec1f2ec5e7417f6f26ef82c0ceb0852795dcd10fab2d56c13f360cfb0595
+    spark-md5: "npm:^3.0.1"
+  checksum: 10c0/ab983355dc71254e88800c641240e9c747be94b497e2a97eac591b12ddebb679c48b3d8006f8c486a226f67166cef16694305a4f41010a852029dc1e71ac2f2a
   languageName: node
   linkType: hard
 
@@ -3032,7 +3032,7 @@ __metadata:
   dependencies:
     "@airbrake/browser": "npm:^1.4.1"
     "@googlemaps/markerclusterer": "npm:^2.5.3"
-    "@rails/actiontext": "npm:^6.0.2-2"
+    "@rails/actiontext": "npm:^8.0.300"
     "@rails/ujs": "npm:^6.0.4"
     activestorage: "npm:^5.2.4-2"
     axios: "npm:^0.30.0"
@@ -3233,7 +3233,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"spark-md5@npm:^3.0.0":
+"spark-md5@npm:^3.0.0, spark-md5@npm:^3.0.1":
   version: 3.0.2
   resolution: "spark-md5@npm:3.0.2"
   checksum: 10c0/3fd11735eac5e7d60d6006d99ac0a055f148a89e9baf5f0b51ac103022dec30556b44190b37f6737ca50f81e8e50dc13e724f9edf6290c412ff5ab2101ce7780
