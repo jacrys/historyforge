@@ -333,23 +333,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rails/actiontext@npm:^6.0.2-2":
-  version: 6.1.710
-  resolution: "@rails/actiontext@npm:6.1.710"
+"@rails/actiontext@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "@rails/actiontext@npm:8.1.0"
   dependencies:
-    "@rails/activestorage": "npm:^6.0.0"
+    "@rails/activestorage": "npm:>= 8.1.0-alpha"
   peerDependencies:
-    trix: ^1.2.0
-  checksum: 10c0/a533be8140b9e742853aad0004802b1ec015c611302b4af3a562c618ac8bc78c74f7be9ba40bc7a1ba74782968abf376af755b02d512db95ba2a2ebb026f58fb
+    trix: ^2.0.0
+  checksum: 10c0/0dfc7d3647b0d634b1510c37d642385ec5e3be88fd259726b858d47c2425c2a49aa544c1b4b31a1704b175e3e54808d715f7cb7cb6214d68a0d50a3546d58b72
   languageName: node
   linkType: hard
 
-"@rails/activestorage@npm:^6.0.0":
-  version: 6.1.710
-  resolution: "@rails/activestorage@npm:6.1.710"
+"@rails/activestorage@npm:>= 8.1.0-alpha":
+  version: 8.1.0
+  resolution: "@rails/activestorage@npm:8.1.0"
   dependencies:
-    spark-md5: "npm:^3.0.0"
-  checksum: 10c0/f00dad0a92120c479d60097e19c80b9b13a2879ef45104ca4812ab125ab167a26467ec1f2ec5e7417f6f26ef82c0ceb0852795dcd10fab2d56c13f360cfb0595
+    spark-md5: "npm:^3.0.1"
+  checksum: 10c0/bf023f6123fd441101b5b0c84ae0d98ce2a01bfced89115968532aca3e4409fbc82a329fc055e75edf255da53798eea41ff74e671998b583addd4d0d5a7a49af
   languageName: node
   linkType: hard
 
@@ -3032,7 +3032,7 @@ __metadata:
   dependencies:
     "@airbrake/browser": "npm:^1.4.1"
     "@googlemaps/markerclusterer": "npm:^2.5.3"
-    "@rails/actiontext": "npm:^6.0.2-2"
+    "@rails/actiontext": "npm:^8.1.0"
     "@rails/ujs": "npm:^6.0.4"
     activestorage: "npm:^5.2.4-2"
     axios: "npm:^0.30.0"
@@ -3233,7 +3233,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"spark-md5@npm:^3.0.0":
+"spark-md5@npm:^3.0.0, spark-md5@npm:^3.0.1":
   version: 3.0.2
   resolution: "spark-md5@npm:3.0.2"
   checksum: 10c0/3fd11735eac5e7d60d6006d99ac0a055f148a89e9baf5f0b51ac103022dec30556b44190b37f6737ca50f81e8e50dc13e724f9edf6290c412ff5ab2101ce7780
