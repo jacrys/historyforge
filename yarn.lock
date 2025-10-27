@@ -716,14 +716,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.30.0":
-  version: 0.30.0
-  resolution: "axios@npm:0.30.0"
+"axios@npm:^1.13.0":
+  version: 1.13.0
+  resolution: "axios@npm:1.13.0"
   dependencies:
-    follow-redirects: "npm:^1.15.4"
-    form-data: "npm:^4.0.0"
+    follow-redirects: "npm:^1.15.6"
+    form-data: "npm:^4.0.4"
     proxy-from-env: "npm:^1.1.0"
-  checksum: 10c0/c3ac8aef31e30063b4aa277aeafdbf2262adbae6d459a405de66d9dd8a8b691bc5fac32c3db691d3dbb23e6d11daebb82aae166b4b858adb036287007215bdc9
+  checksum: 10c0/2af09f8ad9db9565bf97055eb0ddd2fd4abd9a03d23157b409348c9589370a88c3ede02e11fd1268becb780a77b62bdf9488650dd7208eda57edceca1d65622e
   languageName: node
   linkType: hard
 
@@ -1739,7 +1739,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.15.4":
+"follow-redirects@npm:^1.15.6":
   version: 1.15.11
   resolution: "follow-redirects@npm:1.15.11"
   peerDependenciesMeta:
@@ -1779,7 +1779,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data@npm:^4.0.0":
+"form-data@npm:^4.0.4":
   version: 4.0.4
   resolution: "form-data@npm:4.0.4"
   dependencies:
@@ -3035,7 +3035,7 @@ __metadata:
     "@rails/actiontext": "npm:^6.0.2-2"
     "@rails/ujs": "npm:^6.0.4"
     activestorage: "npm:^5.2.4-2"
-    axios: "npm:^0.30.0"
+    axios: "npm:^1.13.0"
     chart.js: "npm:^3.5.1"
     chartkick: "npm:^4.0.5"
     codemirror: "npm:^5.52.2"
