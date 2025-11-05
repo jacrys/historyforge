@@ -2,8 +2,9 @@
 
 module Users
   class RegistrationsController < Devise::RegistrationsController
-    prepend_before_action :check_captcha, only: :create
-    prepend_before_action :lazy_configure_recaptcha
+    include RecaptchaHandlers
+
+    before_action :check_captcha, only: :create, if: :using_recaptcha?
 
     # GET /resource/sign_up
     # def new
@@ -64,14 +65,6 @@ module Users
       params.require(:user).permit(:login, :email, :password, :password_confirmation)
     end
 
-    def lazy_configure_recaptcha
-      Recaptcha.configure do |config|
-        config.site_key = AppConfig[:recaptcha_site_key]
-        config.secret_key = AppConfig[:recaptcha_secret_key]
-        config.skip_verify_env = %w[test]
-      end
-    end
-
     def check_captcha
       self.resource = resource_class.new sign_up_params
       return if recaptcha_verified?
@@ -86,7 +79,7 @@ module Users
     end
 
     def recaptcha_verified?
-      verify_recaptcha(action: 'registration', minimum_score: 0.5, secret_key: AppConfig[:recaptcha_secret_key])
+      verify_recaptcha(action: "registration", minimum_score: 0.5, secret_key: AppConfig[:recaptcha_secret_key])
     end
   end
 end
