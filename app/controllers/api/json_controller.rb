@@ -3,8 +3,7 @@ module Api
     # "api/json?search=your_search" provide your search as a query parameter called search like so
     # http://127.0.0.1:3000/api/json?search=#{params[:search]}
     @@search_controller = SearchController.new
-    skip_before_action :verify_authenticity_token
-    protect_from_forgery with: :null_session
+    protect_from_forgery with: :null_session, if: :cors_request?
 
     def json
 
@@ -19,14 +18,14 @@ module Api
       # response_headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With'
       # response_headers['Vary'] = 'Origin' # Include Vary: Origin
 
-      if request.method == 'OPTIONS'
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-        response.headers['Access-Control-Allow-Headers'] = 'Accept, Accept-Language, Cache-Control, Connection, DNT, Origin, Pragma, Referer, Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site, User-Agent, sec-ch-ua, sec-ch-ua-mobile, sec-ch-ua-platform, Content-Type, Authorization, X-Requested-With'
-        response.headers['Access-Control-Max-Age'] = '86400'
-        head :ok
-        return
-      end
+     # if request.method == 'OPTIONS'
+     #   response.headers['Access-Control-Allow-Origin'] = '*'
+     #   response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+     #   response.headers['Access-Control-Allow-Headers'] = 'Accept, Accept-Language, Cache-Control, Connection, DNT, Origin, Pragma, Referer, Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site, User-Agent, sec-ch-ua, sec-ch-ua-mobile, sec-ch-ua-platform, Content-Type, Authorization, X-Requested-With'
+     #   response.headers['Access-Control-Max-Age'] = '86400'
+     #   head :ok
+     #   return
+     # end
 
 
 
@@ -212,7 +211,7 @@ module Api
                 name: b.name,
                 description: b.description,
                 URL: b.file_attachment.present? ? sanitize_url(rails_blob_url(b.file_attachment, host: ENV.fetch('BASE_URL', nil))) : nil,
-                data_uri: b.data_uri
+                # data_uri: b.data_uri
               }
             end,
             stories: person.narratives.map do |b|
@@ -231,7 +230,7 @@ module Api
                 description: b.description,
                 caption: b.caption,
                 URL: b.remote_url,
-                data_uri: b.data_uri
+                # data_uri: b.data_uri
               }
             end,
             videos: person.videos.map do |b|
@@ -241,7 +240,7 @@ module Api
                 description: b.description,
                 caption: b.caption,
                 URL: b.remote_url,
-                data_uri: b.data_uri
+                # data_uri: b.data_uri
               }
             end,
             photos: person.photos.map do |b|
@@ -252,7 +251,7 @@ module Api
                 caption: b.caption,
                 attatchment: b.file_attachment,
                 URL: b.file_attachment.present? ? sanitize_url(rails_blob_url(b.file_attachment, host: ENV.fetch('BASE_URL', nil))) : nil,
-                data_uri: b.data_uri
+                # data_uri: b.data_uri
               }
             end
           }
@@ -275,7 +274,7 @@ module Api
           attatchment: photo.file_attachment,
           URL: photo.file_attachment.present? ? sanitize_url(rails_blob_url(photo.file_attachment, host: ENV.fetch('BASE_URL', nil))) : nil,
           properties: [buildings: photo.buildings, people: photo.people.map { |p| p.as_json(methods: [:sortable_name]) }, census_records: census_records.map { |c_record| c_record.as_json(methods: [:sortable_name]) }],
-          data_uri: photo.data_uri,
+          # data_uri: photo.data_uri,
           year:
         }
       end
@@ -294,7 +293,7 @@ module Api
             people: audio.people,
             census_records:
           },
-          data_uri: audio.data_uri,
+          # data_uri: audio.data_uri,
           year:
         }
       end
@@ -313,7 +312,7 @@ module Api
             people: video.people.map { |p| p.as_json(methods: [:sortable_name]) },
             census_records: census_records.map { |c_record| c_record.as_json(methods: [:sortable_name]) }
           },
-          data_uri: video.data_uri,
+          # data_uri: video.data_uri,
           year:
         }
       end
@@ -330,7 +329,7 @@ module Api
             people: document.people.map { |p| p.as_json(methods: [:sortable_name]) },
             census_records: document.people.flat_map(&:census_records).map { |c_record| c_record.as_json(methods: [:sortable_name]) },
           },
-          data_uri: document.data_uri
+          # data_uri: document.data_uri
         }
       end
 
@@ -373,7 +372,7 @@ module Api
         description: record.description,
         caption: record.caption,
         URL: url,
-        data_uri: record.data_uri,
+        # data_uri: record.data_uri,
         properties: {
           people: record.people.map { |p| p.as_json(methods: [:sortable_name]) },
           census_records: census_records.map { |c_record| c_record.as_json(methods: [:sortable_name]) },
@@ -414,7 +413,7 @@ module Api
         description: record.description,
         caption: record.caption,
         URL: record.remote_url,
-        data_uri: record.data_uri,
+        # data_uri: record.data_uri,
         properties: {
           people: record.people.map { |p| p.as_json(methods: [:sortable_name]) },
           census_records: census_records.map { |c_record| c_record.as_json(methods: [:sortable_name]) },
@@ -480,7 +479,7 @@ module Api
               filename: b.file_attachment.present? ? b.file_attachment.filename.to_s : nil,
               content_type: b.file_attachment.present? ? b.file_attachment.content_type : nil,
               URL: b.file_attachment.present? ? sanitize_url(rails_blob_url(b.file_attachment, host: ENV.fetch('BASE_URL', nil))) : nil,
-              data_uri: b.data_uri
+              # data_uri: b.data_uri
             }
           end,
           stories: person_narratives.map do |b|
@@ -499,7 +498,7 @@ module Api
               description: b.description,
               caption: b.caption,
               URL: b.remote_url,
-              data_uri: b.data_uri
+              # data_uri: b.data_uri
             }
           end,
           videos: record.videos.map do |b|
@@ -509,7 +508,7 @@ module Api
               description: b.description,
               caption: b.caption,
               URL: b.remote_url,
-              data_uri: b.data_uri
+              # data_uri: b.data_uri
             }
           end,
           photos: record.photos.map do |b|
@@ -522,7 +521,7 @@ module Api
               filename: b.file_attachment.present? ? b.file_attachment.filename.to_s : nil,
               content_type: b.file_attachment.present? ? b.file_attachment.content_type : nil,
               URL: b.file_attachment.present? ? sanitize_url(rails_blob_url(b.file_attachment, host: ENV.fetch('BASE_URL', nil))) : nil,
-              data_uri: b.data_uri
+              # data_uri: b.data_uri
             }
           end
         }
@@ -548,7 +547,7 @@ module Api
           filename: record.file_attachment.filename.to_s,
           content_type: record.file_attachment.content_type,
           URL: url,
-          data_uri: record.data_uri,
+          # data_uri: record.data_uri,
           properties: {
             people: record.people.map { |p| { id: p.id, name: p.searchable_name, sex: p.sex, race: p.race, sortable_name: p.sortable_name } },
             census_records: census_records.map { |cr| { id: cr.id, name: "#{cr.first_name} #{cr.middle_name} #{cr.last_name}", age: cr.age, gender: cr.sex, race: cr.race, sortable_name: cr.sortable_name } },
@@ -565,7 +564,7 @@ module Api
           filename: record.file_attachment.filename.to_s,
           content_type: record.file_attachment.content_type,
           URL: url,
-          data_uri: record.data_uri,
+          # data_uri: record.data_uri,
           properties: {},
           year:
         }

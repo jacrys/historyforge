@@ -42,6 +42,8 @@ class Photograph < ApplicationRecord
 
   default_scope -> { preload(file_attachment: :blob) }
 
+  self.ignored_columns = [:data_uri]
+
   def process
     # nothing to do here, but lets us keep media controller simple.
   end

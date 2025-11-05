@@ -37,4 +37,6 @@ class Audio < ApplicationRecord
   include FileChecksum
   include Media
   include MediaDateBehavior
+
+  self.ignored_columns = [:data_uri]
 end
